@@ -1,0 +1,46 @@
+@page "/"
+
+<div style="width: 100%; background: pink;" class="p-2">
+    <h1 style="color: blue;">Snack!</h1>
+</div>
+
+<div style="width: 100%; background: green" class="p-2">
+    <marquee scrollamount="10" truespeed="100"><h2 style="color: yellow;">The ultimate chat app.</h2></marquee>
+</div>
+
+<EditForm Model="@messageForm" OnValidSubmit="@HandleValidSubmitAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="name" placeholder="Your name" @bind-Value="messageForm.Name" />
+
+    <InputText id="message" placeholder="Your message" @bind-Value="messageForm.Message" />
+
+    <button type="submit">Send 😀</button>
+</EditForm>
+
+@foreach (var message in Messages)
+{
+    <div class="p-2" style="background: black; color: lightgreen;">
+
+        <b style="color: white;">@message.Name says:</b>
+        @message.Message
+
+        @if(message.Url != String.Empty)
+            {
+                <div style="margin-top: 1em;">
+                    <div>
+                        <img style="max-width: 400px; width: 100%; height: auto;" src="@message.Url" />
+                    </div>
+                    <a href="@message.Url" target="_blank">[link]</a>
+                </div>
+            }
+    </div>
+}
+
+<style>
+    body {
+        background: gray;
+        font-family: "Comic Sans MS";
+    }
+</style>
